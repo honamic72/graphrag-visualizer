@@ -17,10 +17,12 @@ COPY . .
 # Build arguments for customization
 ARG REACT_APP_API_URL=""
 ARG REACT_APP_VERSION="0.1.0"
+ARG HOMEPAGE="/"
 
 # Set build args as environment variables during build
 ENV REACT_APP_API_URL=$REACT_APP_API_URL
 ENV REACT_APP_VERSION=$REACT_APP_VERSION
+ENV HOMEPAGE=$HOMEPAGE
 
 # Build the application
 RUN npm run build
