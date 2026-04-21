@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  graphrag-visualizer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_URL=${REACT_APP_API_URL:-}
+        - REACT_APP_VERSION=${REACT_APP_VERSION:-0.1.0}
+    container_name: graphrag-visualizer
+    ports:
+      - "${HOST_PORT:-3000}:80"
+    volumes:
+      # Mount artifacts directory for local file access (optional)
+      - ./public/artifacts:/usr/share/nginx/html/artifacts:ro
+      # Mount nginx logs for debugging
+      - nginx_logs:/var/log/nginx
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - graphrag-network
+
+# Define networks
+networks:
+  graphrag-network:
+    driver: bridge
+
+# Define volumes
+volumes:
+  nginx_logs:
+    driver: local
