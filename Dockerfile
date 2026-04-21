@@ -17,14 +17,14 @@ COPY . .
 # Build arguments for customization
 ARG REACT_APP_API_URL=""
 ARG REACT_APP_VERSION="0.1.0"
-ARG HOMEPAGE="/"
+ARG PUBLIC_URL="/"
 
 # Set build args as environment variables during build
 ENV REACT_APP_API_URL=$REACT_APP_API_URL
 ENV REACT_APP_VERSION=$REACT_APP_VERSION
-ENV HOMEPAGE=$HOMEPAGE
+ENV PUBLIC_URL=$PUBLIC_URL
 
-# Build the application
+# Build the application with PUBLIC_URL override
 RUN npm run build
 
 # Production stage
