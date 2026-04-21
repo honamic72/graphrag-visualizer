@@ -40,9 +40,9 @@ COPY --from=builder /app/build .
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Create non-root user for security (nginx group already exists in alpine image)
-RUN adduser -S -D -H -u 1001 -h /var/cache/nginx -s /sbin/nologin -G nginx nginx && \
-    chown -R nginx:nginx /var/cache/nginx && \
+# Use existing nginx user from alpine image (no need to create)
+# Just set proper permissions
+RUN chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /usr/share/nginx/html && \
     chown -R nginx:nginx /var/log/nginx && \
     chown -R nginx:nginx /etc/nginx/conf.d && \
