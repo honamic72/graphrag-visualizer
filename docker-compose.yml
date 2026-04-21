@@ -8,7 +8,7 @@ services:
       args:
         - REACT_APP_API_URL=${REACT_APP_API_URL:-}
         - REACT_APP_VERSION=${REACT_APP_VERSION:-0.1.0}
-        - HOMEPAGE=/
+        - PUBLIC_URL=/
     container_name: graphrag-visualizer
     ports:
       - "${HOST_PORT:-3000}:80"
